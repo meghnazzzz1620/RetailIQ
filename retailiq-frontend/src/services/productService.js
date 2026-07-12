@@ -1,0 +1,55 @@
+import api from "./api";
+
+export const getAllProducts = async () => {
+
+    const response = await api.get("/products");
+
+    return response.data;
+
+};
+
+export const getProductById = async (id) => {
+
+    const response = await api.get(`/products/${id}`);
+
+    return response.data;
+
+};
+
+export const createProduct = async (product) => {
+
+    const response = await api.post("/products", product);
+
+    return response.data;
+
+};
+
+export const updateProduct = async (id, product) => {
+
+    const response = await api.put(`/products/${id}`, product);
+
+    return response.data;
+
+};
+
+export const deleteProduct = async (id) => {
+
+    return await api.delete(`/products/${id}`);
+
+};
+
+export const searchProducts = async (keyword) => {
+
+    const response = await api.get("/products/search", {
+
+        params: {
+
+            keyword
+
+        }
+
+    });
+
+    return response.data;
+
+};

@@ -1,0 +1,30 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Maven
+target/
+
+# Node
+node_modules/
+dist/
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Local properties
+application-local.properties
+
+# Build
+build/

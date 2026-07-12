@@ -1,0 +1,47 @@
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.page-header h1{
+
+    margin:0;
+
+}
+
+.page-header p{
+
+    color:#6B7280;
+
+}
+
+.page-header button{
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+.page-header button:hover{
+
+    background:#1D4ED8;
+
+}

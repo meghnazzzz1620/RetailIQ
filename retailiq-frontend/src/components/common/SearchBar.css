@@ -1,0 +1,17 @@
+.search-bar{
+
+    width:320px;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:1px solid #D1D5DB;
+
+    outline:none;
+
+    margin-top:20px;
+
+    margin-bottom:20px;
+
+}
