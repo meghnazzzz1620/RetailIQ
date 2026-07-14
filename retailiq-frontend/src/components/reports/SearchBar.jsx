@@ -1,20 +1,28 @@
 import { TextField } from "@mui/material";
 
-function SearchBar({ value, onChange }) {
+function SearchBar({
+
+    value,
+
+    onChange,
+
+    placeholder = "Search"
+
+}) {
 
     return (
 
         <TextField
 
-            label="Search"
-
             value={value}
 
             onChange={(e) => onChange(e.target.value)}
 
+            placeholder={placeholder}
+
             size="small"
 
-            sx={{ width: 300 }}
+            sx={{ width: 300, mb: 2 }}
 
         />
 

@@ -8,6 +8,22 @@ export const getAllCategories = async () => {
 
 };
 
+export const searchCategories = async (keyword) => {
+
+    const response = await api.get("/categories/search", {
+
+        params: {
+
+            keyword
+
+        }
+
+    });
+
+    return response.data;
+
+};
+
 export const getCategoryById = async (id) => {
 
     const response = await api.get(`/categories/${id}`);

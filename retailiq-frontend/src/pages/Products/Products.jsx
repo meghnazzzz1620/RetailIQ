@@ -11,7 +11,8 @@ import ProductDialog from "../../components/forms/ProductDialog";
 import {
     getAllProducts,
     getProductById,
-    deleteProduct
+    deleteProduct,
+    searchProducts
 } from "../../services/productService";
 
 function Products() {
@@ -23,6 +24,8 @@ function Products() {
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     const [isEdit, setIsEdit] = useState(false);
+
+    const [keyword, setKeyword] = useState("");
 
     const loadProducts = async () => {
 
@@ -45,6 +48,36 @@ function Products() {
         loadProducts();
 
     }, []);
+
+    useEffect(() => {
+
+        const timer = setTimeout(async () => {
+
+            try {
+
+                if (keyword.trim() === "") {
+
+                    loadProducts();
+
+                } else {
+
+                    const data = await searchProducts(keyword);
+
+                    setProducts(data);
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }, 300);
+
+        return () => clearTimeout(timer);
+
+    }, [keyword]);
 
     const handleOpen = () => {
 
@@ -210,7 +243,9 @@ function Products() {
             />
 
             <SearchBar
-                placeholder="Search products..."
+                placeholder="Search Products..."
+                value={keyword}
+                onChange={setKeyword}
             />
 
             <CommonTable

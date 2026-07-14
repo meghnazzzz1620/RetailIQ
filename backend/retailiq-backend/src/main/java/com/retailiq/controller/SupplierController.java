@@ -30,6 +30,13 @@ public class SupplierController {
 
         return supplierService.getAllSuppliers();
     }
+    @GetMapping("/search")
+    public List<SupplierResponse> searchSuppliers(
+            @RequestParam String keyword) {
+
+        return supplierService.searchSuppliers(keyword);
+
+    }
     @GetMapping("/{id}")
     public SupplierResponse getSupplierById(@PathVariable Long id) {
 

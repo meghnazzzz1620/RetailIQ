@@ -39,6 +39,9 @@ public class BrandService {
                 .map(BrandMapper::toResponse)
                 .toList();
     }
+
+
+
     public BrandResponse getBrandById(Long id) {
 
         Brand brand = brandRepository.findById(id)
@@ -72,9 +75,19 @@ public class BrandService {
                         new BusinessException("Brand not found."));
 
         brand.setStatus(false);
+
         brand.setUpdatedAt(java.time.LocalDateTime.now());
 
         brandRepository.save(brand);
+
+    }
+
+    public List<BrandResponse> searchBrands(String keyword) {
+
+        return brandRepository.searchBrands(keyword)
+                .stream()
+                .map(BrandMapper::toResponse)
+                .toList();
 
     }
 }

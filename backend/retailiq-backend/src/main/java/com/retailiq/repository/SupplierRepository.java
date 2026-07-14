@@ -4,19 +4,30 @@ import com.retailiq.dto.SupplierReportResponse;
 import com.retailiq.entity.Supplier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface SupplierRepository extends JpaRepository<Supplier, Long> {
 
-    // Existing methods used by SupplierService
     boolean existsBySupplierCode(String supplierCode);
 
     boolean existsByEmail(String email);
 
     List<Supplier> findByStatusTrue();
 
-    // Supplier Report
+    @Query("""
+            SELECT s
+            FROM Supplier s
+            WHERE s.status = true
+            AND (
+                LOWER(s.companyName) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                OR LOWER(s.contactPerson) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                OR LOWER(s.supplierCode) LIKE LOWER(CONCAT('%', :keyword, '%'))
+            )
+            """)
+    List<Supplier> searchSuppliers(@Param("keyword") String keyword);
+
     @Query("""
         SELECT new com.retailiq.dto.SupplierReportResponse(
 

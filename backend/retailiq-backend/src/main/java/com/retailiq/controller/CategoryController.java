@@ -31,6 +31,14 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
+    @GetMapping("/search")
+    public List<CategoryResponse> searchCategories(
+            @RequestParam String keyword) {
+
+        return categoryService.searchCategories(keyword);
+
+    }
+
     @GetMapping("/{id}")
     public CategoryResponse getCategoryById(@PathVariable Long id) {
 
@@ -55,4 +63,5 @@ public class CategoryController {
         return "Category deleted successfully.";
 
     }
+
 }

@@ -11,7 +11,8 @@ import CategoryDialog from "../../components/forms/CategoryDialog";
 import {
     getAllCategories,
     getCategoryById,
-    deleteCategory
+    deleteCategory,
+    searchCategories
 } from "../../services/categoryService";
 
 function Categories() {
@@ -23,6 +24,8 @@ function Categories() {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     const [isEdit, setIsEdit] = useState(false);
+
+    const [keyword, setKeyword] = useState("");
 
     const loadCategories = async () => {
 
@@ -46,6 +49,36 @@ function Categories() {
 
     }, []);
 
+    useEffect(() => {
+
+        const timer = setTimeout(async () => {
+
+            try {
+
+                if (keyword.trim() === "") {
+
+                    loadCategories();
+
+                } else {
+
+                    const data = await searchCategories(keyword);
+
+                    setCategories(data);
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }, 300);
+
+        return () => clearTimeout(timer);
+
+    }, [keyword]);
+
     const handleOpen = () => {
 
         setSelectedCategory(null);
@@ -55,6 +88,39 @@ function Categories() {
         setOpen(true);
 
     };
+    useEffect(() => {
+
+    console.log("Searching:", keyword);
+
+    const timer = setTimeout(async () => {
+
+        try {
+
+            if (keyword.trim() === "") {
+
+                loadCategories();
+
+            } else {
+
+                const data = await searchCategories(keyword);
+
+                console.log("Search Result:", data);
+
+                setCategories(data);
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }, 300);
+
+    return () => clearTimeout(timer);
+
+}, [keyword]);
 
     const handleClose = () => {
 
@@ -187,9 +253,11 @@ function Categories() {
                 onClick={handleOpen}
             />
 
-            <SearchBar
-                placeholder="Search Categories..."
-            />
+           <SearchBar
+    placeholder="Search Categories..."
+    value={keyword}
+    onChange={setKeyword}
+/>
 
             <CommonTable
                 rows={rows}

@@ -10,4 +10,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     boolean existsByCategoryName(String categoryName);
 
     List<Category> findByStatusTrue();
+
+    List<Category> findByStatusTrueAndCategoryNameContainingIgnoreCase(String keyword);
+
 }

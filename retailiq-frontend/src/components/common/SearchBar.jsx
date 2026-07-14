@@ -1,14 +1,36 @@
-import "./SearchBar.css";
+import { TextField } from "@mui/material";
 
-function SearchBar({ placeholder }) {
+function SearchBar({
+
+    value = "",
+
+    onChange,
+
+    placeholder = "Search"
+
+}) {
 
     return (
 
-        <input
+        <TextField
 
-            className="search-bar"
+            fullWidth={false}
+
+            size="small"
 
             placeholder={placeholder}
+
+            value={value}
+
+            onChange={(e) => {
+
+                console.log("Typing:", e.target.value);
+
+                onChange(e.target.value);
+
+            }}
+
+            sx={{ width: 350 }}
 
         />
 

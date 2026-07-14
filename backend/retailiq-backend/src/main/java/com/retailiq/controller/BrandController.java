@@ -31,6 +31,14 @@ public class BrandController {
         return brandService.getAllBrands();
     }
 
+    @GetMapping("/search")
+    public List<BrandResponse> searchBrands(
+            @RequestParam String keyword) {
+
+        return brandService.searchBrands(keyword);
+
+    }
+
     @GetMapping("/{id}")
     public BrandResponse getBrandById(@PathVariable Long id) {
 
@@ -55,4 +63,6 @@ public class BrandController {
         return "Brand deleted successfully.";
 
     }
+
+
 }

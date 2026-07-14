@@ -48,6 +48,14 @@ public class SupplierService {
                 .map(SupplierMapper::toResponse)
                 .toList();
     }
+    public List<SupplierResponse> searchSuppliers(String keyword) {
+
+        return supplierRepository.searchSuppliers(keyword)
+                .stream()
+                .map(SupplierMapper::toResponse)
+                .toList();
+
+    }
     public SupplierResponse getSupplierById(Long id) {
 
         Supplier supplier = supplierRepository.findById(id)

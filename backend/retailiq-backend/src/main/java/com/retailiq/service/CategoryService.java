@@ -21,7 +21,7 @@ public class CategoryService {
 
     public CategoryResponse createCategory(CategoryRequest request) {
 
-        if(categoryRepository.existsByCategoryName(request.getCategoryName())) {
+        if (categoryRepository.existsByCategoryName(request.getCategoryName())) {
             throw new BusinessException("Category already exists.");
         }
 
@@ -35,6 +35,15 @@ public class CategoryService {
     public List<CategoryResponse> getAllCategories() {
 
         return categoryRepository.findByStatusTrue()
+                .stream()
+                .map(CategoryMapper::toResponse)
+                .toList();
+    }
+
+    public List<CategoryResponse> searchCategories(String keyword) {
+
+        return categoryRepository
+                .findByStatusTrueAndCategoryNameContainingIgnoreCase(keyword)
                 .stream()
                 .map(CategoryMapper::toResponse)
                 .toList();
@@ -79,4 +88,5 @@ public class CategoryService {
         categoryRepository.save(category);
 
     }
+
 }

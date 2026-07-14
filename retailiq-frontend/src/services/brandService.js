@@ -8,6 +8,22 @@ export const getAllBrands = async () => {
 
 };
 
+export const searchBrands = async (keyword) => {
+
+    const response = await api.get("/brands/search", {
+
+        params: {
+
+            keyword
+
+        }
+
+    });
+
+    return response.data;
+
+};
+
 export const getBrandById = async (id) => {
 
     const response = await api.get(`/brands/${id}`);

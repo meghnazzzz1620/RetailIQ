@@ -7,18 +7,21 @@ import PageHeader from "../../components/common/PageHeader";
 import SearchBar from "../../components/common/SearchBar";
 import CommonTable from "../../components/tables/CommonTable";
 import BrandDialog from "../../components/forms/BrandDialog";
-
 import {
     getAllBrands,
     getBrandById,
-    deleteBrand
+    deleteBrand,
+    searchBrands
 } from "../../services/brandService";
+
+
 
 function Brands() {
 
     const [open, setOpen] = useState(false);
 
     const [brands, setBrands] = useState([]);
+    const [keyword, setKeyword] = useState("");
 
     const [selectedBrand, setSelectedBrand] = useState(null);
 
@@ -45,6 +48,37 @@ function Brands() {
         loadBrands();
 
     }, []);
+
+    useEffect(() => {
+
+    const timer = setTimeout(async () => {
+
+        try {
+
+            if (keyword.trim() === "") {
+
+                loadBrands();
+
+            } else {
+
+                const data = await searchBrands(keyword);
+
+                setBrands(data);
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }, 300);
+
+    return () => clearTimeout(timer);
+
+}, [keyword]);
+
 
     const handleOpen = () => {
 
@@ -188,8 +222,10 @@ function Brands() {
             />
 
             <SearchBar
-                placeholder="Search Brands..."
-            />
+    placeholder="Search Brands..."
+    value={keyword}
+    onChange={setKeyword}
+/>
 
             <CommonTable
                 rows={rows}
